@@ -1,6 +1,6 @@
 # mobileapp_code
 
-A Flutter mobile application which streams real-time data from the Micro-Controller.
+A new Flutter project.
 
 ## Getting Started
 
