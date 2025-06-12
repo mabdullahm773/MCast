@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp_code/screens/home_screen.dart';
 import 'package:mobileapp_code/screens/lock_screen.dart';
+import 'package:mobileapp_code/screens/settings_screen.dart';
 import 'package:mobileapp_code/screens/splash_screen.dart';
 
 void main(){
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomeScreen(),
         '/lock': (context) => LockScreen(),
-        // '/settings': (context) => SettingsScreen(),
+        '/settings': (context) => SettingsScreen(),
       },
     );
   }

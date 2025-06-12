@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobileapp_code/services/url_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _ip = 'http://192.168.0.105/';
   bool _isLoading = true;
   bool _hasError = false;
 
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final stopwatch = Stopwatch()..start();
 
     try {
-      final response = await http.get(Uri.parse(_ip)).timeout(Duration(seconds: 3));
+      final response = await http.get(Uri.parse(UrlService.ip)).timeout(Duration(seconds: 3));
       _hasError = response.statusCode != 200;
     } catch (e) {
       _hasError = true;
@@ -45,44 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
-  void _showEditIpDialog() {
-    final TextEditingController _controller = TextEditingController(text: _ip);
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Edit Camera IP'),
-          content: TextField(
-            controller: _controller,
-            keyboardType: TextInputType.url,
-            decoration: InputDecoration(
-              hintText: 'http://192.168.0.105/',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _ip = _controller.text.trim();
-                });
-                Navigator.pop(context);
-                checkStream();
-              },
-              child: Text('Save'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Live Camera Stream'),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
-            tooltip: 'Edit IP',
-            onPressed: _showEditIpDialog,
+            icon: Icon(Icons.settings),
+            tooltip: 'Settings',
+            onPressed: () => Navigator.pushNamed(context, '/settings'),
           )
         ],
       ),
@@ -120,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       )
           : Center(
         child: Image.network(
-          _ip,
+          UrlService.ip,
           fit: BoxFit.contain,
           errorBuilder: (context, error, stackTrace) {
             return Text("Stream unavailable.");

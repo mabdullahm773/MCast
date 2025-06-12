@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:mobileapp_code/services/local_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,9 +28,15 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _glowController, curve: Curves.easeInOut),
     );
 
-    Timer(Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, '/lock'); // or '/home'
+    Timer(Duration(seconds: 4), () async {
+      bool isEnabled = await ApplockService.isAppLockEnabled();
+      if (isEnabled) {
+        Navigator.pushReplacementNamed(context, '/lock');
+      }
+
+      Navigator.pushReplacementNamed(context, '/home');
     });
+
   }
 
   @override
