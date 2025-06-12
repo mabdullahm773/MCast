@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     Timer(Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, '/lock'); // or '/home'
+      Navigator.pushReplacementNamed(context, '/home'); // or '/home'
     });
   }
 

@@ -56,16 +56,40 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "flutter_hooks",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_hooks-0.21.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-5.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
     {
+      "name": "flutter_mjpeg",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_mjpeg-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.7"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "leak_tracker",
@@ -158,10 +182,22 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "typed_data",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "visibility_detector",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/visibility_detector-0.4.0+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "vm_service",
@@ -176,7 +212,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-06-12T11:33:41.641003Z",
+  "generated": "2025-06-12T13:43:17.978884Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/flutter",
