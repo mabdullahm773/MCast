@@ -33,6 +33,9 @@ dependencies:
   animated_text_kit: ^4.2.2
   http: ^0.13.6
   flutter_mjpeg: ^2.0.4
+  passcode_screen: ^2.0.1
+  local_auth: ^2.3.0
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

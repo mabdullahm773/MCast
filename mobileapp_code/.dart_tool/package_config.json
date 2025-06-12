@@ -74,6 +74,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.28",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -90,6 +96,12 @@
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.20.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "leak_tracker",
@@ -116,6 +128,36 @@
       "languageVersion": "3.6"
     },
     {
+      "name": "local_auth",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "local_auth_android",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.49",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "local_auth_darwin",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_darwin-1.4.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "local_auth_platform_interface",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_platform_interface-1.0.10",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "local_auth_windows",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_windows-1.0.11",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.17",
       "packageUri": "lib/",
@@ -134,10 +176,22 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "passcode_screen",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/passcode_screen-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "sky_engine",
@@ -212,7 +266,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-06-12T13:43:17.978884Z",
+  "generated": "2025-06-12T16:51:07.802306Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/flutter",
