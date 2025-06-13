@@ -78,6 +78,8 @@ class _LockScreenState extends State<LockScreen> {
             );
           }
         },
+        title: "Enter Secret key To access",
+        cancel: true,
       ),
     );
   }

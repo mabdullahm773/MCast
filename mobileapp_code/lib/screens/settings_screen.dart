@@ -43,6 +43,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             await ApplockService.setSecretKey(key);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Secret key saved')));
           },
+          title: "Set Recovery Key",
+          cancel: false,
         ),
       );
 

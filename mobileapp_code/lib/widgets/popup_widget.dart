@@ -1,5 +1,3 @@
-// lib/widgets/app_info_dialog.dart
-
 import 'package:flutter/material.dart';
 
 class AppInfoDialog {
@@ -43,8 +41,9 @@ class AppInfoDialog {
 /// ---------------------------- Secret key saving widget
 class SecretKeyPopup extends StatefulWidget {
   final Function(String) onSubmit;
-
-  const SecretKeyPopup({super.key, required this.onSubmit});
+  final String title;
+  final bool cancel;
+  const SecretKeyPopup({super.key, required this.onSubmit, required this.title, required this.cancel});
 
   @override
   State<SecretKeyPopup> createState() => _SecretKeyPopupState();
@@ -53,7 +52,6 @@ class SecretKeyPopup extends StatefulWidget {
 class _SecretKeyPopupState extends State<SecretKeyPopup> {
   final TextEditingController _controller = TextEditingController();
   bool _isEmpty = true;
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope( // disables back button
@@ -63,46 +61,63 @@ class _SecretKeyPopupState extends State<SecretKeyPopup> {
         insetPadding: const EdgeInsets.all(24),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.vpn_key_rounded, size: 60, color: Colors.deepPurple),
-              const SizedBox(height: 16),
-              const Text(
-                'Set Recovery Key',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'This secret key will help you recover your passcode in case you forget it.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _controller,
-                onChanged: (value) => setState(() => _isEmpty = value.trim().isEmpty),
-                decoration: InputDecoration(
-                  hintText: 'e.g., MyPet123',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.vpn_key_rounded, size: 60, color: Colors.redAccent),
+                const SizedBox(height: 16),
+                Text(
+                  widget.title,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: _isEmpty
-                    ? null
-                    : () {
-                  widget.onSubmit(_controller.text.trim());
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.check),
-                label: const Text('Submit'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(45),
-                  backgroundColor: Colors.deepPurple,
+                const SizedBox(height: 12),
+                const Text(
+                  'This secret key will help you recover your passcode in case you forget it.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _controller,
+                  onChanged: (value) => setState(() => _isEmpty = value.trim().isEmpty),
+                  decoration: InputDecoration(
+                    hintText: 'e.g., MyPet123',
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Column(
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: _isEmpty
+                          ? null
+                          : () {
+                        widget.onSubmit(_controller.text.trim());
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.check, color: Colors.white,),
+                      label: const Text('Submit', style: TextStyle(color: Colors.white),),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(45),
+                        backgroundColor: Colors.green.shade700,
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    if (widget.cancel)
+                      ElevatedButton.icon(
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(Icons.cancel, color: Colors.white ,),
+                        label: const Text('Cancel', style: TextStyle(color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(45),
+                          backgroundColor: Colors.redAccent.shade200,
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
