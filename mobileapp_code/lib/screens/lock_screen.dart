@@ -4,8 +4,8 @@ import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:local_auth/local_auth.dart';
-
 import '../services/local_storage.dart';
+import '../widgets/popup_widget.dart';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({super.key});
@@ -60,6 +60,29 @@ class _LockScreenState extends State<LockScreen> {
     }
   }
 
+  void _showRecoveryKeyPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => SecretKeyPopup(
+        onSubmit: (enteredKey) async {
+          final storedKey = await ApplockService.getSecretKey();
+
+          if (enteredKey == storedKey) {
+            Navigator.pop(context);
+            // Navigating to SetPasscodeScreen to allow user to set a new passcode
+            Navigator.pushNamed(context, '/set_passcode');
+          } else {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Incorrect secret key')),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+
   void _goToHome() {
     Navigator.pushReplacementNamed(context, '/home');
   }
@@ -88,10 +111,21 @@ class _LockScreenState extends State<LockScreen> {
         digitTextStyle: TextStyle(fontSize: 22, color: Colors.white),
       ),
       cancelCallback: () => Navigator.pop(context),
-      bottomWidget: TextButton.icon(
-        icon: const Icon(Icons.fingerprint, color: Colors.white),
-        label: const Text('Use Fingerprint', style: TextStyle(color: Colors.white)),
-        onPressed: _authenticateBiometric,
+      bottomWidget: Column(
+        children: [
+          TextButton.icon(
+            icon: const Icon(Icons.fingerprint, color: Colors.white),
+            label: const Text('Use Fingerprint', style: TextStyle(color: Colors.white)),
+            onPressed: _authenticateBiometric,
+          ),
+          TextButton(
+            onPressed: () => _showRecoveryKeyPopup(context),
+            child: const Text(
+              'Forgot Passcode?',
+              style: TextStyle(color: Colors.white70, fontStyle: FontStyle.italic),
+            ),
+          ),
+        ],
       ),
     );
   }

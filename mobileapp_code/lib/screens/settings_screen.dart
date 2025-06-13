@@ -3,6 +3,7 @@ import 'package:mobileapp_code/screens/setpasscode_screen.dart';
 import 'package:mobileapp_code/services/url_service.dart';
 import 'package:provider/provider.dart';
 import '../services/local_storage.dart';
+import '../widgets/popup_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -28,15 +29,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _toggleAppLock(bool value) async {
     if (value) {
-      // User is enabling the lock → navigate to SetPasscode screen
+      // if User is enabling the lock he should be navigated to SetPasscodeScreen
       final result = await Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const SetPasscodeScreen()),
       );
 
-      if (result == true) {
-        setState(() => isSecurityEnabled = true);
-      }
+      await showDialog(
+        context: context,
+        barrierDismissible: false, // prevent tapping outside to dismiss
+        builder: (_) => SecretKeyPopup(
+          onSubmit: (key) async {
+            await ApplockService.setSecretKey(key);
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Secret key saved')));
+          },
+        ),
+      );
+
     } else {
       // User is disabling the lock → clear passcode
       await ApplockService.setAppLockEnabled(false);
@@ -92,50 +101,66 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('General', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: Text('General', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
           ),
-          ListTile(
-            title: const Text('Edit Stream IP'),
-            subtitle: Text(UrlService.ip),
-            leading: const Icon(Icons.link),
-            trailing: const Icon(Icons.edit),
-            onTap: _editIpDialog,
+          Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: ListTile(
+              title: const Text('Edit Stream IP'),
+              subtitle: Text(UrlService.ip),
+              leading: const Icon(Icons.link),
+              trailing: const Icon(Icons.edit),
+              onTap: _editIpDialog,
+            ),
           ),
-          Consumer<ThemeService>(
-            builder: (context, themeService, _) => SwitchListTile(
-              title: const Text('Dark Theme'),
-              value: themeService.isDarkTheme,
-              secondary: const Icon(Icons.dark_mode),
-              onChanged: (val) => themeService.toggleTheme(),
+          Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: Consumer<ThemeService>(
+              builder: (context, themeService, _) => SwitchListTile(
+                title: const Text('Dark Theme'),
+                value: themeService.isDarkTheme,
+                secondary: const Icon(Icons.dark_mode),
+                onChanged: (val) => themeService.toggleTheme(),
+              ),
             ),
           ),
 
           const Divider(),
           const Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('Security', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: Text('Security', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
           ),
-          SwitchListTile(
-            title: const Text('Enable App Lock'),
-            value: isSecurityEnabled,
-            secondary: const Icon(Icons.lock),
-            onChanged: _toggleAppLock,
+          Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: SwitchListTile(
+              title: const Text('Enable App Lock'),
+              value: isSecurityEnabled,
+              secondary: const Icon(Icons.lock),
+              onChanged: _toggleAppLock,
 
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.password),
-            title: const Text('Change Passcode'),
-            onTap: _changePasscode,
+          Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: ListTile(
+              leading: const Icon(Icons.password),
+              title: const Text('Change Passcode'),
+              onTap: _changePasscode,
+            ),
           ),
           const Divider(),
           const Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('About', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: Text('About', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
           ),
-          const ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('App Info'),
-            subtitle: Text('MicroCam Viewer v1.0.0'),
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text('App Info'),
+              subtitle: Text('MCast Viewer v1.0.0'),
+              onTap: () => AppInfoDialog.show(context),
+            ),
           ),
         ],
       ),

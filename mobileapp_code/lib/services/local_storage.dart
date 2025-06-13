@@ -5,14 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApplockService {
   static const String _appLockKey = 'app_lock_enabled';
   static const String _passcodeKey = 'app_lock_passcode';
+  static const String _secretKey = 'recovery_secret_key';
 
-  /// Get current app lock status
+
+  /// --------------- current app lock status
   static Future<bool> isAppLockEnabled() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_appLockKey) ?? false;
   }
 
-  /// Enable/disable app lock
+  /// ---------------  enable/disable app lock
   static Future<void> setAppLockEnabled(bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_appLockKey, value);
@@ -23,26 +25,44 @@ class ApplockService {
     }
   }
 
-  /// Save the user-defined passcode
+  /// ---------------  Save the new passcode
   static Future<void> savePasscode(String passcode) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_passcodeKey, passcode);
   }
 
-  /// Retrieve saved passcode (null if not set)
+  /// --------------- fetch saved passcode
   static Future<String?> getPasscode() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_passcodeKey);
   }
 
-  /// Optional: Clear passcode manually
+  ///  --------------- remove passcode manually
   static Future<void> clearPasscode() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_passcodeKey);
   }
+
+  /// ---------------  Save the secret key
+  static Future<void> setSecretKey(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_secretKey, value);
+  }
+
+  /// ---------------  get the saved secret key
+  static Future<String?> getSecretKey() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_secretKey);
+  }
+
+  /// ---------------  Delete the saved secret key
+  static Future<void> clearSecretKey() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_secretKey);
+  }
 }
 
-///////// for the theme
+/// --------------- for the theme
 
 class ThemeService extends ChangeNotifier {
   static const _themeKey = 'is_dark_theme';
