@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobileapp_code/screens/setpasscode_screen.dart';
 import 'package:mobileapp_code/services/url_service.dart';
-
+import 'package:provider/provider.dart';
 import '../services/local_storage.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -26,9 +27,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _toggleAppLock(bool value) async {
-    setState(() => isSecurityEnabled = value);
-    await ApplockService.setAppLockEnabled(value);
+    if (value) {
+      // User is enabling the lock → navigate to SetPasscode screen
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const SetPasscodeScreen()),
+      );
+
+      if (result == true) {
+        setState(() => isSecurityEnabled = true);
+      }
+    } else {
+      // User is disabling the lock → clear passcode
+      await ApplockService.setAppLockEnabled(false);
+      await ApplockService.savePasscode('');
+      setState(() => isSecurityEnabled = false);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('App Lock disabled')),
+      );
+    }
   }
+
 
   void _editIpDialog() {
     final controller = TextEditingController(text: UrlService.ip);
@@ -61,9 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _changePasscode() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Change Passcode feature not implemented yet.')),
-    );
+    Navigator.pushNamed(context, '/verify');
   }
 
   @override
@@ -83,12 +101,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.edit),
             onTap: _editIpDialog,
           ),
-          SwitchListTile(
-            title: const Text('Dark Theme'),
-            value: isDarkTheme,
-            secondary: const Icon(Icons.dark_mode),
-            onChanged: (val) => setState(() => isDarkTheme = val),
+          Consumer<ThemeService>(
+            builder: (context, themeService, _) => SwitchListTile(
+              title: const Text('Dark Theme'),
+              value: themeService.isDarkTheme,
+              secondary: const Icon(Icons.dark_mode),
+              onChanged: (val) => themeService.toggleTheme(),
+            ),
           ),
+
           const Divider(),
           const Padding(
             padding: EdgeInsets.all(16.0),
@@ -99,6 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             value: isSecurityEnabled,
             secondary: const Icon(Icons.lock),
             onChanged: _toggleAppLock,
+
           ),
           ListTile(
             leading: const Icon(Icons.password),

@@ -29,12 +29,13 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     Timer(Duration(seconds: 4), () async {
-      bool isEnabled = await ApplockService.isAppLockEnabled();
-      if (isEnabled) {
-        Navigator.pushReplacementNamed(context, '/lock');
-      }
+      final isLockEnabled = await ApplockService.isAppLockEnabled();
 
-      Navigator.pushReplacementNamed(context, '/home');
+      if (isLockEnabled) {
+        Navigator.pushReplacementNamed(context, '/lock');
+      } else {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
     });
 
   }

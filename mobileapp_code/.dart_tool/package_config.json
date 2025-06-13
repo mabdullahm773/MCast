@@ -194,6 +194,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "passcode_screen",
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/passcode_screen-2.0.1",
       "packageUri": "lib/",
@@ -234,6 +240,12 @@
       "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///C:/Users/Mohammad%20Abdullah/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "shared_preferences",
@@ -362,7 +374,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-06-12T18:37:59.674248Z",
+  "generated": "2025-06-13T12:14:35.948941Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/flutter",
