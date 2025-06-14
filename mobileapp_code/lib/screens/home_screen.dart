@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mjpeg/flutter_mjpeg.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> checkStream() async {
+    print('Connecting to: ${UrlService.ip}');
     setState(() {
       _isLoading = true;
       _hasError = false;
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final stopwatch = Stopwatch()..start();
 
     try {
-      final response = await http.get(Uri.parse(UrlService.ip)).timeout(Duration(seconds: 3));
+      final response = await http.get(Uri.parse(UrlService.ip)).timeout(const Duration(seconds: 3));
       _hasError = response.statusCode != 200;
     } catch (e) {
       _hasError = true;
@@ -50,42 +50,42 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Live Camera Stream'),
+        title: const Text('Live Camera Stream'),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             tooltip: 'Settings',
             onPressed: () => Navigator.pushNamed(context, '/settings'),
           )
         ],
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : _hasError
           ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.wifi_off, size: 48, color: Colors.redAccent),
-            SizedBox(height: 12),
-            Text(
+            const Icon(Icons.wifi_off, size: 48, color: Colors.redAccent),
+            const SizedBox(height: 12),
+            const Text(
               "Failed to connect to camera.",
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: checkStream,
-              icon: Icon(Icons.refresh),
-              label: Text("Retry"),
+              icon: const Icon(Icons.refresh),
+              label: const Text("Retry"),
             ),
           ],
         ),
       )
-      : Center(
-          child: Mjpeg(
-           stream: UrlService.ip,
-           isLive: true,
-           error: (context, error, stack) => Text("Stream unavailable."),
+          : Center(
+        child: Mjpeg(
+          stream: UrlService.ip,
+          isLive: true,
+          error: (context, error, stack) => const Text("Stream unavailable."),
         ),
       ),
     );
