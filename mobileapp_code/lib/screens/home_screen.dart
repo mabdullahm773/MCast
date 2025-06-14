@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mjpeg/flutter_mjpeg.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobileapp_code/services/url_service.dart';
 
@@ -80,13 +81,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       )
-          : Center(
-        child: Image.network(
-          UrlService.ip,
-          fit: BoxFit.contain,
-          errorBuilder: (context, error, stackTrace) {
-            return Text("Stream unavailable.");
-          },
+      : Center(
+          child: Mjpeg(
+           stream: UrlService.ip,
+           isLive: true,
+           error: (context, error, stack) => Text("Stream unavailable."),
         ),
       ),
     );
