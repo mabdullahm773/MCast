@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp_code/screens/home_screen.dart';
 import 'package:mobileapp_code/screens/lock_screen.dart';
+import 'package:mobileapp_code/screens/secretkey_screen.dart';
 import 'package:mobileapp_code/screens/setpasscode_screen.dart';
 import 'package:mobileapp_code/screens/settings_screen.dart';
 import 'package:mobileapp_code/screens/splash_screen.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/settings': (context) => SettingsScreen(),
         '/verify' : (context) => VerifyPasscodeScreen(),
         '/change' : (context) => SetPasscodeScreen(),
+        '/secretkey' : (context) => SecretKeyScreen(),
       },
     );
   }

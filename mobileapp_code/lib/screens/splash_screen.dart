@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/services.dart';
 import 'package:mobileapp_code/services/local_storage.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,6 +20,11 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     _glowController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
@@ -28,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _glowController, curve: Curves.easeInOut),
     );
 
-    Timer(Duration(seconds: 4), () async {
+    Timer(Duration(seconds: 3), () async {
       final isLockEnabled = await ApplockService.isAppLockEnabled();
 
       if (isLockEnabled) {
@@ -37,7 +43,6 @@ class _SplashScreenState extends State<SplashScreen>
         Navigator.pushReplacementNamed(context, '/home');
       }
     });
-
   }
 
   @override

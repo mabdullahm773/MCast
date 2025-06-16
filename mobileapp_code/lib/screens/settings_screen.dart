@@ -34,22 +34,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         context,
         MaterialPageRoute(builder: (_) => const SetPasscodeScreen()),
       );
-
-      await showDialog(
-        context: context,
-        barrierDismissible: false, // prevent tapping outside to dismiss
-        builder: (_) => SecretKeyPopup(
-          onSubmit: (key) async {
-            await ApplockService.setSecretKey(key);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Secret key saved')));
-          },
-          title: "Set Recovery Key",
-          cancel: false,
-        ),
-      );
-
     } else {
-      // User is disabling the lock → clear passcode
+      // User is disabling the lock clear passcode
       await ApplockService.setAppLockEnabled(false);
       await ApplockService.savePasscode('');
       setState(() => isSecurityEnabled = false);
@@ -91,8 +77,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  void _changePasscode() {
-    Navigator.pushNamed(context, '/verify');
+  void _changePasscode() async {
+    final isEnabled = await ApplockService.isAppLockEnabled();
+    if(isEnabled){
+      Navigator.pushNamed(context, '/verify');
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No App Lock set')),
+      );
+    }
   }
 
   @override

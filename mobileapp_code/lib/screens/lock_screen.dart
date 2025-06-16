@@ -60,31 +60,6 @@ class _LockScreenState extends State<LockScreen> {
     }
   }
 
-  void _showRecoveryKeyPopup(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => SecretKeyPopup(
-        onSubmit: (enteredKey) async {
-          final storedKey = await ApplockService.getSecretKey();
-
-          if (enteredKey == storedKey) {
-            Navigator.pop(context);
-            // Navigating to SetPasscodeScreen to allow user to set a new passcode
-            Navigator.pushNamed(context, '/set_passcode');
-          } else {
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Incorrect secret key')),
-            );
-          }
-        },
-        title: "Enter Secret key To access",
-        cancel: true,
-      ),
-    );
-  }
-
-
   void _goToHome() {
     Navigator.pushReplacementNamed(context, '/home');
   }
@@ -98,33 +73,35 @@ class _LockScreenState extends State<LockScreen> {
         style: TextStyle(color: Colors.white, fontSize: 22),
       ),
       passwordDigits: 4,
-      backgroundColor: Colors.deepPurple.shade700,
+      backgroundColor: Colors.teal.shade900,
       passwordEnteredCallback: _onPasscodeEntered,
       cancelButton: const Text('Cancel', style: TextStyle(color: Colors.white)),
       deleteButton: const Text('Delete', style: TextStyle(color: Colors.white)),
       shouldTriggerVerification: _verificationNotifier.stream,
       circleUIConfig: const CircleUIConfig(
+        borderWidth: 1,
         borderColor: Colors.white,
         fillColor: Colors.white,
-        circleSize: 12,
+        circleSize: 15,
       ),
       keyboardUIConfig: const KeyboardUIConfig(
-        digitBorderWidth: 1,
+        digitBorderWidth: 1.2,
         digitTextStyle: TextStyle(fontSize: 22, color: Colors.white),
       ),
       cancelCallback: () => Navigator.pop(context),
       bottomWidget: Column(
         children: [
+          SizedBox(height: 22,),
           TextButton.icon(
-            icon: const Icon(Icons.fingerprint, color: Colors.white),
-            label: const Text('Use Fingerprint', style: TextStyle(color: Colors.white)),
+            icon: const Icon(Icons.fingerprint, color: Colors.green),
+            label: const Text('Use Fingerprint', style: TextStyle(color: Colors.green,fontSize: 16)),
             onPressed: _authenticateBiometric,
           ),
           TextButton(
-            onPressed: () => _showRecoveryKeyPopup(context),
+            onPressed: () => Navigator.pushNamed(context, '/secretkey'),
             child: const Text(
               'Forgot Passcode?',
-              style: TextStyle(color: Colors.white70, fontStyle: FontStyle.italic),
+              style: TextStyle(color: Colors.blue, fontStyle: FontStyle.italic),
             ),
           ),
         ],
