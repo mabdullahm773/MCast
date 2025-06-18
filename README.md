@@ -33,7 +33,7 @@
    git clone https://github.com/mabdullahm773/MCast.git
    cd MicroCam/hardware/esp32-cam
 3. Configure and Build:
-    Change the SSID and PAssword according to your internet connection in esp wifi code
+    - Change the SSID and Password according to your internet connection in esp wifi code
     ```bash
     idf.py build
     idf.py -p PORT flash
@@ -54,3 +54,8 @@
     flutter run
 5. 📱 App requires camera stream IP (e.g., http://192.168.x.x) in settings which is assigned to the micro controller
 
+
+### ⚠️ Important Note
+
+> **Make sure both your mobile device and the ESP32-CAM are connected to the same Wi-Fi network.**  
+> This is necessary because the video stream uses a local IP address (e.g., `http://192.168.x.x`) which only works within the same network.
